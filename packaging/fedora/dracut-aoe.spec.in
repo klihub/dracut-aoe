@@ -1,0 +1,36 @@
+Summary: Dracut module to boot from AoE devices.
+Name: dracut-aoe
+Version: __VERSION__
+Release: __RELEASE__
+License: BSDv3
+BuildArch: noarch
+Group: System Environment/Base
+URL: https://github.comOpenAoE/vblade
+Source0: %{name}-%{version}.%{release}.tar.bz2
+
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRequires: /usr/bin/install
+Requires: dracut dracut-network net-tools-2.0
+
+%description
+A small dracut helper module to boot from AoE devices.
+
+%prep
+%setup -q
+
+%build
+
+%install
+rm -rf $RPM_BUILD_ROOT
+%make_install DESTDIR=$RPM_BUILD_ROOT LIBDIR=/lib
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root,-)
+/lib/dracut/modules.d/95aoe
+
+%changelog
+* Sun Mar 08 2020 Krisztian Litkey <kli@iki.fi> - v0.0
+- Initial build.
